@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+ 
+  <form id="user-form">
+
+      <!-- Label for Text Box -->
+      <label for="user-input">Search a Topic!</label>
+  
+      <!-- Text Input Box -->
+      <input type="text" id="user-input"><br>
+  
+      <!-- Submit Button -->
+      <input id="select-user" type="submit" value="GO!">
+    </form>
+
+    <div id="search-results"></div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    //"user-input" is referring to the html it's grabbing from
+    function searchArticleTopic(article) {
+          // var userSearch = $("#user-input");
+          var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + article + "&api-key=nHhXAcfG4pFKedUz3xKQ7Jb3xB2nqPC1";
+    
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).then(function(response) {
+            console.log(response);
+    
+            
+
+      // The artist's name
+    
+            var topicSearch = response.response.docs[0].headline;
+            console.log(topicSearch);
+            var pOne = $("<p>").text("Article Title:" + topicSearch);
+            $("#search-results").append(pOne);
+            
+
+
+
+  
+
+           
+          })
+    
+        
+        } 
+  
+  $("#select-user").on("click", function(event) {
+    // Preventing the button from trying to submit the form
+    event.preventDefault();
+    // Storing the artist name
+    var article = $("#user-input").val().trim();
+    // console.log(artist);
+    searchArticleTopic(article);
+  });
+  
+
+
+
+</script>
+
+</body>
+</html>
+
+
+ 
